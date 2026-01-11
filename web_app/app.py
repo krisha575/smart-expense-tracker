@@ -28,6 +28,20 @@ def add_expense():
 
     return "Expense added successfully! <br><br><a href='/'>Go Back</a>"
 
+# ---------------- VIEW ALL EXPENSES ----------------
+@app.route("/expenses")
+def view_expenses():
+    expenses = []
+
+    try:
+        with open(FILE_NAME, "r") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                expenses.append(row)
+    except FileNotFoundError:
+        pass
+
+    return render_template("expenses.html", expenses=expenses)
 
 
 # ---------------- MONTHLY SUMMARY ----------------
