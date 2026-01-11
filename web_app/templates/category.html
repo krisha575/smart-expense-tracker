@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h1>Category-wise Expense Summary</h1>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Category</th>
+            <th>Total Amount</th>
+        </tr>
+
+        {% for category, total in summary.items() %}
+        <tr>
+            <td>{{ category }}</td>
+            <td>₹{{ total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Go Back</a>
+</body>
+</html>

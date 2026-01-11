@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Expense Analytics</h1>
+
+<!-- ================= CATEGORY BAR CHART ================= -->
+<h2>Category-wise Expense</h2>
+<canvas id="categoryChart" width="400" height="200"></canvas>
+
+<!-- ================= CATEGORY PIE CHART ================= -->
+<h2>Category-wise Distribution</h2>
+<canvas id="pieChart" width="400" height="200"></canvas>
+
+<!-- ================= MONTHLY LINE CHART ================= -->
+<h2>Monthly Expense Trend</h2>
+<canvas id="monthlyChart" width="400" height="200"></canvas>
+
+<br>
+<a href="/">Go Back</a>
+
+<script>
+    /* ---------- DATA FROM FLASK ---------- */
+    const categoryLabels = {{ category_data.keys() | list | safe }};
+    const categoryValues = {{ category_data.values() | list | safe }};
+
+    const monthLabels = {{ monthly_data.keys() | list | safe }};
+    const monthValues = {{ monthly_data.values() | list | safe }};
+
+    /* ---------- BAR CHART ---------- */
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'bar',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                label: 'Amount (₹)',
+                data: categoryValues,
+                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+            }]
+        }
+    });
+
+    /* ---------- PIE CHART ---------- */
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                data: categoryValues,
+                backgroundColor: [
+                    '#4e79a7',
+                    '#f28e2b',
+                    '#e15759',
+                    '#76b7b2',
+                    '#59a14f',
+                    '#edc948'
+                ]
+            }]
+        }
+    });
+
+    /* ---------- LINE CHART ---------- */
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'line',
+        data: {
+            labels: monthLabels,
+            datasets: [{
+                label: 'Monthly Spend (₹)',
+                data: monthValues,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                fill: false
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

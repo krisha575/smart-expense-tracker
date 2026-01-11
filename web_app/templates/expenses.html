@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Expenses</title>
+</head>
+<body>
+    <h1>All Expenses</h1>
+
+    <!-- 🔽 CATEGORY FILTER FORM -->
+    <form method="GET" action="/expenses">
+        <label>Filter by Category:</label>
+        <select name="category">
+            <option value="All">All</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Study">Study</option>
+        </select>
+        <button type="submit">Apply Filter</button>
+    </form>
+
+    <br>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Description</th>
+        </tr>
+
+        {% for row in expenses %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">Go Back</a>
+</body>
+</html>
